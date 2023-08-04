@@ -9,24 +9,24 @@ generator client {
 }
 
 model Account {
-  id                       Int      @id @default(autoincrement())
+  id                       Int       @id @default(autoincrement())
   userId                   Int
   type                     String
   provider                 String
   providerAccountId        String
-  refresh_token            String?  @db.VarChar(500)
-  access_token             String?  @db.VarChar(500)
+  refresh_token            String?   @db.VarChar(500)
+  access_token             String?   @db.VarChar(500)
   expires_at               Int?
   token_type               String?
   scope                    String?
-  id_token                 String?  @db.Text
+  id_token                 String?   @db.Text
   session_state            String?
-  createdAt                DateTime @default(now())
+  createdAt                DateTime? @default(now())
   oauth_token              String?
   oauth_token_secret       String?
   refresh_token_expires_in Int?
-  updatedAt                DateTime
-  user                     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  updatedAt                DateTime?
+  user                     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
   @@index([userId])
@@ -51,7 +51,7 @@ model User {
   createdAt     DateTime  @default(now())
   password      String?
   role          String?   @default("user")
-  updatedAt     DateTime
+  updatedAt     DateTime?
   accounts      Account[]
   sessions      Session[]
 }
