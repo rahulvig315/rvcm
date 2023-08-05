@@ -1,5 +1,5 @@
-import Logo from "./components/Logo";
-import { Login } from "./components/Login";
+import Logo from "./components/shared/Logo";
+import { Login } from "./components/auth/Login";
 
 
 export default function Home() {
