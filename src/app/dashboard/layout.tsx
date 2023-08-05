@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 import { Inter } from 'next/font/google'
-import { authOptions } from '../api/auth/[...nextauth]/options'
+import { authOptions } from '../api/(auth)/auth/[...nextauth]/options'
 import { redirect } from 'next/navigation'
 
 const inter = Inter({ subsets: ['latin'] })
