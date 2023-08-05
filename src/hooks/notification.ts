@@ -1,4 +1,4 @@
-import { NotificationContext } from "@/app/context/NotificationProvider";
+import { NotificationContext } from "@/context/NotificationProvider";
 import { useContext } from "react";
 import { NotificationProps } from "../components/shared/Notification";
 import { NotificationTypes } from "../constants/index";

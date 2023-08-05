@@ -1,5 +1,5 @@
-import { NotificationBackgroundClasses, NotificationTypes } from '@/app/constants';
-import { AddNotification } from '@/app/hooks/notification';
+import { NotificationBackgroundClasses, NotificationTypes } from '@/constants';
+import { AddNotification } from '@/hooks/notification';
 import { Dispatch } from 'react';
 
 export type NotificationProps = {
