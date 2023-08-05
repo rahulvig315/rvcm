@@ -3,6 +3,8 @@ import { SignInResponse, signIn, useSession } from 'next-auth/react'
 import {ChangeEvent, MouseEvent, useEffect, useMemo, useRef, useState } from 'react';
 import { GithubButton, GoogleButton } from '../(shared)/buttons';
 import { redirect } from 'next/navigation';
+import { useNotification } from '@/hooks/notification';
+import { NotificationTypes, REQUEST_HEADERS } from '@/constants';
 
 
 const defaultLoginOpts = {
@@ -40,6 +42,7 @@ const Routes = {
 
 
 export function Login({ loginOpts = defaultLoginOpts }: { loginOpts?: LoginProps['loginOpts'] }) {
+  const { addNotification, notifications } = useNotification();
   const [formInputs, setFormInputs] = useState({
     name: '',
     email: '',
@@ -56,9 +59,16 @@ export function Login({ loginOpts = defaultLoginOpts }: { loginOpts?: LoginProps
     const email: string = formInputs.email || '';
     const password: string = formInputs.password || '';
     if (email && password) {
-      update(await nextCredentialsSignIn({ email, password }));
+      const res = await nextCredentialsSignIn({ email, password });
+      if (!res?.error) {
+        addNotification('User Authorized Successfully', NotificationTypes.SUCCESS);     
+      } else {
+        addNotification('Unauthorized User. Either Invalid Email or Password', NotificationTypes.ERROR);
+      }
    }
   }
+
+  console.log(notifications);
 
   async function onRegister(e: MouseEvent) {
     e.preventDefault();
@@ -70,9 +80,7 @@ export function Login({ loginOpts = defaultLoginOpts }: { loginOpts?: LoginProps
         if (password === passwordConfirm && !!name && !!email) {
           const createUserRes = await fetch('/api/register', {
             method: "POST",
-            headers: {
-              'Content-Type': 'application/json'
-            },
+            headers: REQUEST_HEADERS.CONTENT_TYPE,
             body: JSON.stringify({
               name,
               email,
@@ -82,7 +90,7 @@ export function Login({ loginOpts = defaultLoginOpts }: { loginOpts?: LoginProps
           const createdUser = await createUserRes.json();
           console.log(createdUser)
           if (createdUser && createdUser?.status !== 'error') {
-            await onLogin(e);
+              await onLogin(e);
           }
         }
         } catch (error) {
@@ -98,7 +106,7 @@ export function Login({ loginOpts = defaultLoginOpts }: { loginOpts?: LoginProps
   
 
   if (status === 'authenticated') {
-    redirect('/dashboard')
+    redirect(Routes.Dashboard)
   }
 
   return (
