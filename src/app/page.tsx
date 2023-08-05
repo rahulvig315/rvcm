@@ -1,4 +1,4 @@
-import Logo from "../components/shared/Logo";
+import Logo from "../components/(shared)/Logo";
 import { Login } from "../components/(auth)/Login";
 
 

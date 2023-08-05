@@ -1,6 +1,6 @@
 'use client';
 import { Context, Dispatch, createContext, useReducer } from 'react';
-import { Notification, NotificationProps } from '../components/shared/Notification'
+import { Notification, NotificationProps } from '../components/(shared)/Notification'
 
 
 type NotificationDispatch = Dispatch<{ type?: string, notification?: Partial<NotificationProps>, id?: string }>

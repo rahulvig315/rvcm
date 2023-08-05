@@ -1,7 +1,7 @@
 "use client";
 import { SignInResponse, signIn, useSession } from 'next-auth/react'
 import {ChangeEvent, MouseEvent, useEffect, useMemo, useRef, useState } from 'react';
-import { GithubButton, GoogleButton } from '../shared/buttons';
+import { GithubButton, GoogleButton } from '../(shared)/buttons';
 import { redirect } from 'next/navigation';
 
 
@@ -80,6 +80,7 @@ export function Login({ loginOpts = defaultLoginOpts }: { loginOpts?: LoginProps
             })
           });
           const createdUser = await createUserRes.json();
+          console.log(createdUser)
           if (createdUser && createdUser?.status !== 'error') {
             await onLogin(e);
           }
