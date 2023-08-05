@@ -49,7 +49,6 @@ export function Login({ loginOpts = defaultLoginOpts }: { loginOpts?: LoginProps
     password: '',
     passwordConfirm: ''
   })
-  const [loading, setLoading] = useState<boolean>(false);
   const [isSignUp, setIsSignUp] = useState<boolean>(false);
   const { classes } = loginOpts;
   const { status, update } = useSession();
@@ -67,8 +66,6 @@ export function Login({ loginOpts = defaultLoginOpts }: { loginOpts?: LoginProps
       }
    }
   }
-
-  console.log(notifications);
 
   async function onRegister(e: MouseEvent) {
     e.preventDefault();
@@ -143,17 +140,17 @@ export function Login({ loginOpts = defaultLoginOpts }: { loginOpts?: LoginProps
         <div className={classes.credSubgroup}>
           {!isSignUp &&
             <>
-              <button className={classes.credLoginBtn} onClick={async (e) => await onLogin(e)}>Login</button>
+              <button disabled={status === 'loading'}  className={classes.credLoginBtn} onClick={async (e) => await onLogin(e)}>Login</button>
               <button className={classes.credRegisterBtn} onClick={() => setIsSignUp(!isSignUp)}>Sign Up</button>
             </>
           }
           {isSignUp && <>
-            <button className={classes.credRegisterBtn} onClick={() => setIsSignUp(!isSignUp)}>Back to Login</button>
-            <button className={classes.credRegisterBtn} onClick={async (e) => await onRegister(e)}>Register</button>
+            <button disabled={status === 'loading'} className={classes.credRegisterBtn} onClick={() => setIsSignUp(!isSignUp)}>Back to Login</button>
+            <button disabled={status === 'loading'} className={classes.credRegisterBtn} onClick={async (e) => await onRegister(e)}>Register</button>
           </>}
         </div>
         <h2 className={classes.providersText}>Or Login with </h2>
-        <div className={classes.providersSubgroup}>
+        <div  className={`${status === 'loading' ? 'cursor-not-allowed' : 'cursor-default'} ${classes.providersSubgroup}`}>
             <GoogleButton className={classes.providerBtns}/>
             <GithubButton className={classes.providerBtns} />
         </div>
