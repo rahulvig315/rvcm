@@ -3,12 +3,13 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { NextAuthProvider } from './providers';
 import { NotificationProvider } from '../context/NotificationProvider';
+import { APP_DESCRIPTION, APP_NAME } from '@/constants';
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'RVCM',
-  description: 'Rahul Vig Customer Manager',
+  title: APP_NAME,
+  description: APP_DESCRIPTION,
 }
 
 export default function RootLayout({
