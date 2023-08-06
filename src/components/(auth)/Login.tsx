@@ -1,7 +1,7 @@
 "use client";
 import { SignInResponse, signIn, useSession } from 'next-auth/react'
 import {ChangeEvent, MouseEvent, useEffect, useMemo, useRef, useState } from 'react';
-import { GithubButton, GoogleButton } from '../(shared)/buttons';
+import { GithubButton, GoogleButton } from '../(shared)/Buttons';
 import { redirect } from 'next/navigation';
 import { useNotification } from '@/hooks/notification';
 import { NotificationTypes, REQUEST_HEADERS } from '@/constants';
