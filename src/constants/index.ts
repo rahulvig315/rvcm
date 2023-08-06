@@ -16,6 +16,14 @@ export enum NotificationTypes {
 
 export enum Routes {
   Dashboard = "/dashboard",
+  Customers = "/customers",
+  Analytics = "/analytics",
+  Tasks = "/tasks",
+  Leads = "/leads",
+  Schedule = "/schedule",
+  Logs = "/logs",
+  Finances = "/finances",
+  Chat = "/chat",
   Registration = "/api/register",
 }
 
