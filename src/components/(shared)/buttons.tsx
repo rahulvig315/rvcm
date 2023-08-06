@@ -31,8 +31,8 @@ export function GoogleButton({ className, size }: Partial<ProviderButtonProps>) 
   )
 } 
 
-export function SignOut({ className, size }: Partial<ProviderButtonProps>) {
+export function SignOut({ className = 'bg-[#132] uppercase text-sm font-black rounded-r-md rounded-l-md px-5', size }: Partial<ProviderButtonProps>) {
   return (
-    <button onClick={() => signOut()}>Sign Out</button>
+    <button className={className} onClick={() => signOut()}>Sign Out</button>
   )
 }

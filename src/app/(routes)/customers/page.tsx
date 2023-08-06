@@ -4,8 +4,10 @@ import Logo from '@/components/(shared)/Logo'
 
 function Customers() {
   return (
-    <section className='flex items-center justify-center w-full h-full '>
-      <h1>Customers</h1>
+    <section className='flex justify-center w-full h-full '>
+      <header className='bg-[#333] h-fit w-full flex justify-center p-3 rounded-t-xl  text-sm md:text-xl font-thin uppercase '>
+        Customers
+      </header>
     </section>
   )
 }
