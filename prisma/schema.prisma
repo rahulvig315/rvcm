@@ -9,8 +9,8 @@ generator client {
 }
 
 model Account {
-  id                       Int       @id @default(autoincrement())
-  userId                   Int
+  id                       String    @id @default(uuid())
+  userId                   String
   type                     String
   provider                 String
   providerAccountId        String
@@ -33,9 +33,9 @@ model Account {
 }
 
 model Session {
-  id           Int      @id @default(autoincrement())
+  id           String   @id @default(uuid())
   sessionToken String   @unique
-  userId       Int
+  userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -43,7 +43,7 @@ model Session {
 }
 
 model User {
-  id            Int       @id @default(autoincrement())
+  id            String    @id @default(uuid())
   name          String
   email         String?   @unique
   emailVerified DateTime?
@@ -62,4 +62,47 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Customer {
+  id             String        @id @unique @default(uuid())
+  fullName       String
+  email          String        @unique
+  bio            String
+  image          String
+  accountCreated DateTime      @default(now())
+  accountName    String
+  phone          String
+  address        String
+  transactions   Transaction[]
+}
+
+model Transaction {
+  id                String             @id @unique @default(uuid())
+  customerId        String
+  creditCardDetails CreditCardDetails?
+  productDetails    ProductDetails?
+  customer          Customer           @relation(fields: [customerId], references: [id])
+
+  @@index([customerId])
+}
+
+model CreditCardDetails {
+  cvv           String
+  issuer        String
+  number        String      @unique
+  transactionId String      @unique
+  transaction   Transaction @relation(fields: [transactionId], references: [id])
+}
+
+model ProductDetails {
+  price              String
+  productName        String
+  productAdjective   String
+  productMaterial    String
+  product            String
+  department         String
+  productDescription String
+  transactionId      String      @unique
+  transaction        Transaction @relation(fields: [transactionId], references: [id])
 }
