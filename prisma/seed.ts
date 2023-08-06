@@ -1,16 +1,43 @@
-import { PrismaClient } from "@prisma/client";
-import { hash } from "bcryptjs";
+import { Customer, PrismaClient, Transaction } from "@prisma/client";
 import { generateMockCustomers } from "../vendor/data-generator/customers";
-import { CustomerTransaction } from "../vendor/data-generator/customers/types";
+import {
+  CustomerWithTransactions,
+  TransactionWithProductAndCreditCardDetails,
+} from "../vendor/data-generator/customers/types";
 
 const prisma = new PrismaClient();
-
 async function main() {
-  const mockCustomers: CustomerTransaction[] = generateMockCustomers(30, 20);
-  prisma.customer.createMany({
-    data: [...mockCustomers] as any,
-  });
+  const customersWithTransactions: CustomerWithTransactions[] =
+    generateMockCustomers(100, 5);
+  for (const { transactions, ...customer } of customersWithTransactions) {
+    const customerToAdd: Customer = customer;
+    const transactionsToAdd: TransactionWithProductAndCreditCardDetails[] =
+      transactions;
+    // Add Customer
+    await prisma.customer.create({
+      data: customerToAdd,
+    });
+    for (let {
+      creditCardDetails,
+      productDetails,
+      transaction,
+    } of transactionsToAdd) {
+      // Add Transaction
+      await prisma.transaction.create({
+        data: transaction,
+      });
+      // Add CreditCardDetails
+      await prisma.creditCardDetails.create({
+        data: creditCardDetails,
+      });
+      // Add ProductDetails
+      await prisma.productDetails.create({
+        data: productDetails,
+      });
+    }
+  }
 }
+
 main()
   .then(() => prisma.$disconnect())
   .catch(async (e) => {

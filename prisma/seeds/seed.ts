@@ -15,7 +15,7 @@ async function main() {
             name: "Admin",
             updatedAt: new Date(),
             createdAt: new Date(),
-             password
+            password
         },
     } as any);
 

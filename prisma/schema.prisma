@@ -78,24 +78,29 @@ model Customer {
 }
 
 model Transaction {
-  id                String             @id @unique @default(uuid())
-  customerId        String
-  creditCardDetails CreditCardDetails?
-  productDetails    ProductDetails?
-  customer          Customer           @relation(fields: [customerId], references: [id])
+  transactionId       String            @id @unique @default(uuid())
+  customerId          String
+  productDetailsId    String
+  creditCardDetailsId String
+  creditCardDetails   CreditCardDetails @relation(fields: [creditCardDetailsId], references: [id])
+  productDetails      ProductDetails    @relation(fields: [productDetailsId], references: [id])
+  customer            Customer          @relation(fields: [customerId], references: [id])
 
   @@index([customerId])
+  @@index([productDetailsId])
+  @@index([creditCardDetailsId])
 }
 
 model CreditCardDetails {
-  cvv           String
-  issuer        String
-  number        String      @unique
-  transactionId String      @unique
-  transaction   Transaction @relation(fields: [transactionId], references: [id])
+  id          String        @id @default(uuid())
+  cvv         String
+  issuer      String
+  number      String        @unique
+  Transaction Transaction[]
 }
 
 model ProductDetails {
+  id                 String        @id @default(uuid())
   price              String
   productName        String
   productAdjective   String
@@ -103,6 +108,5 @@ model ProductDetails {
   product            String
   department         String
   productDescription String
-  transactionId      String      @unique
-  transaction        Transaction @relation(fields: [transactionId], references: [id])
+  Transaction        Transaction[]
 }
