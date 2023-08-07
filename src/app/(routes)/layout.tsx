@@ -24,15 +24,15 @@ export default async function RootLayout({
 
   const user = await getServerSession(authOptions);
   if (!user) {
-      redirect('/')
+    redirect('/')
   }
 
   return (
-    <main className='flex flex-col h-screen overflow-hidden'>
+    <main>
       <Nav />
-      <div className='flex h-full'>
+      <div>
         <Aside />
-        <section className='w-full mx-3 md:mx-16 my-10 rounded-xl shadow-2xl drop-shadow-2xl bg-[#222]'>
+        <section>
           {children}
         </section>
       </div>

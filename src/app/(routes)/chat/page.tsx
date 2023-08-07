@@ -1,10 +1,8 @@
-import React from 'react'
-import {SignOut} from '../../../components/(shared)/Buttons'
-import Logo from '@/components/(shared)/Logo'
+import React from 'react';
 
 function Chat() {
   return (
-    <section className='flex items-center justify-center w-full h-full '>
+    <section>
       <h1>Chat</h1>
     </section>
   )

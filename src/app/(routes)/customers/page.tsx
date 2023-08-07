@@ -1,13 +1,19 @@
-import React from 'react'
-import {SignOut} from '../../../components/(shared)/Buttons'
-import Logo from '@/components/(shared)/Logo'
+import React, { useEffect } from 'react'
+import { Customer as CustomerModel } from '@prisma/client';
+import CustomerTable from '@/components/(customer)/Customer';
 
-function Customers() {
+async function getCustomers() {
+  return (await fetch(`${process.env.NEXTAUTH_URL}/api/customers`)).json();
+}
+
+async function Customers() {
+  const customers: CustomerModel[] = await getCustomers();
   return (
-    <section className='flex justify-center w-full h-full '>
-      <header className='bg-[#333] h-fit w-full flex justify-center p-3 rounded-t-xl  text-sm md:text-xl font-thin uppercase '>
+    <section>
+      <header>
         Customers
       </header>
+      <CustomerTable customers={customers} />
     </section>
   )
 }
