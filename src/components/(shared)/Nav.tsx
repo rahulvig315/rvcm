@@ -2,10 +2,21 @@ import React from 'react'
 import { SignOut } from './Buttons'
 import Logo from './Logo'
 
-function Nav() {
+const navStyles = {
+    classes: {
+        nav: 'flex sticky justify-between  bg-[#222]/80 backdrop-blur-lg rounded-r-md col-span-1 shadow-[#232] shadow-2xl',
+        logoWrapper: 'flex items-center font-thin gap-3 bg-[#000] pr-4 rounded-r-md',
+        logoClass: 'p-0',
+    },
+    attributes: {
+        logoSize: 100
+    }
+}
+
+function Nav({ classes = navStyles['classes'], attributes = navStyles['attributes'] }: { classes: typeof navStyles['classes'], attributes: typeof navStyles['attributes'] }) {
     return (
-        <nav className='flex sticky justify-between  bg-[#222]/80 backdrop-blur-lg rounded-r-md col-span-1 shadow-[#232] shadow-2xl'>
-            <Logo size={100} logoClasses='p-0' wrapperClasses='flex items-center font-thin gap-3 bg-[#000] pr-4 rounded-r-md' />
+        <nav className={classes.nav}>
+            <Logo size={attributes.logoSize} logoClasses={classes.logoClass} wrapperClasses={classes.logoWrapper} />
             <SignOut />
         </nav>
     )
