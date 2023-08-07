@@ -9,11 +9,11 @@ const navStyles = {
         logoClass: 'p-0',
     },
     attributes: {
-        logoSize: 100
+        logoSize: 50
     }
 }
 
-function Nav({ classes = navStyles['classes'], attributes = navStyles['attributes'] }: { classes: typeof navStyles['classes'], attributes: typeof navStyles['attributes'] }) {
+function Nav({ classes = navStyles['classes'], attributes = navStyles['attributes'] }: { classes?: typeof navStyles['classes'], attributes?: typeof navStyles['attributes'] }) {
     return (
         <nav className={classes.nav}>
             <Logo size={attributes.logoSize} logoClasses={classes.logoClass} wrapperClasses={classes.logoWrapper} />

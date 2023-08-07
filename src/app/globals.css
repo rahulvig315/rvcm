@@ -21,6 +21,10 @@ body {
 
 @layer utilities {
   /* Used on Login/Home Page for Unauthenticated users */
+  .app-routes-layout {
+    @apply flex flex-col w-screen h-screen overflow-hidden;
+  }
+  
   .side-by-side {
     @apply flex flex-col items-center justify-center min-h-screen gap-16 p-24 md:flex-row;
   }

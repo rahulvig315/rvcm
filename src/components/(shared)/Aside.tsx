@@ -10,10 +10,12 @@ const checkIfRouteActive = (active: string, route: Routes): string => {
   return active === route && 'active' || '';
 }
 
+const asideClasses = 'hidden md:flex flex-col text-xs h-screen justify-center gap-2'
+
 function Aside() {
   const active = usePathname();
   return (
-    <aside >
+    <aside className={asideClasses}>
       <Link className={checkIfRouteActive(active, Routes.Dashboard)} href={Routes.Dashboard}>Dashboard</Link>
       <Link className={checkIfRouteActive(active, Routes.Customers)} href={Routes.Customers} >Customers</Link>
       <Link className={checkIfRouteActive(active, Routes.Analytics)} href={Routes.Analytics} >Analytics</Link>

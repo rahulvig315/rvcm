@@ -7,5 +7,5 @@ aside > a {
 }
 
 aside > a.active {
-    @apply bg-[#000]
+    @apply bg-[#111];
 }
