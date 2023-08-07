@@ -85,7 +85,6 @@ export function Login({ loginOpts = defaultLoginOpts }: { loginOpts?: LoginProps
             })
           });
           const createdUser = await createUserRes.json();
-          console.log(createdUser)
           if (createdUser && createdUser?.status !== 'error') {
               await onLogin(e);
           }

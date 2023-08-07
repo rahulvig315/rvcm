@@ -17,7 +17,6 @@ export const useNotification = () => {
       type: AddNotification["type"] = NotificationTypes.INFO
     ) => {
       const id = Math.random().toString(36).substring(2);
-      console.log("here");
       dispatch({
         type: "ADD_NOTIFICATION",
         notification: { id, content, type } as Partial<NotificationProps>,
