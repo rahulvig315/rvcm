@@ -1,10 +1,11 @@
+import Header from '@/components/(shared)/Header';
 import React from 'react'
 
 function Leads() {
   return (
-    <section>
-      <h1>Leads</h1>
-    </section>
+    <>
+      <Header title='Leads' />
+    </>
   )
 }
 

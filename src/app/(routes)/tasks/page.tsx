@@ -1,10 +1,11 @@
+import Header from '@/components/(shared)/Header';
 import React from 'react'
 
 function Tasks() {
   return (
-    <section>
-      <h1>Tasks</h1>
-    </section>
+    <>
+      <Header title='Tasks' />
+    </>
   )
 }
 
