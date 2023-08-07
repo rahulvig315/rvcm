@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 const layoutClasses = {
   main: 'app-routes-layout',
   content: 'flex',
-  section: 'mx-auto my-10 bg-[#111] p-10 rounded-lg shadow-2xl drop-shadow-2xl'
+  section: 'mx-auto my-10 bg-[#111] p-10 rounded-lg shadow-2xl drop-shadow-2xl h-[80vh] overflow-hidden w-[85vw]'
 }
 
 export default async function RootLayout({
