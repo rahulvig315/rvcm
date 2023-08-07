@@ -18,7 +18,7 @@ export type HTMLTableElementClasses = {
 
 export const defaultTableClasses = {
   wrapper: '',
-  table: '',
+  table: 'w-full m-auto text-left divide-y divide-y-1',
   thead: '',
   trHead: '',
   th: '',

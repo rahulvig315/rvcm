@@ -7,9 +7,9 @@ import Table, { HTMLTableElementClasses, defaultTableClasses } from '../(shared)
 const columnHelper = createColumnHelper<CustomerModel>();
 
 
-const RowActions = ({ row }: { row: Row<CustomerModel> }) => {
+const RowActions = ({ row, classes = { rowClass: 'text-right' } }: { row: Row<CustomerModel>, classes?: { rowClass: string } }) => {
   return (
-    <div >
+    <div className={classes.rowClass}>
       <button >View</button>
       <button >Edit</button>
       <button >Delete</button>
@@ -25,11 +25,6 @@ const defaultColumns: any = [
     header: () => <span >Customer</span>,
     cell: props => <div ><Image src={props.row.original.image} width={50} height={50} alt={`Image of ${props.row.original.fullName}`} />{props.row.original.fullName}</div>,
   }),
-  columnHelper.accessor('bio', {
-    id: 'bio',
-    cell: info => info.getValue(),
-    header: () => <span >About</span>
-  }),
   columnHelper.accessor('email', {
     cell: info => info.getValue(),
     header: () => <span >Email</span>
@@ -41,7 +36,7 @@ const defaultColumns: any = [
   }),
   columnHelper.display({
     id: 'actions',
-    header: () => <span >Actions</span>,
+    header: () => <span className='flex justify-end'>Actions</span>,
     cell(props) {
       return <RowActions row={props.row} />
     },
