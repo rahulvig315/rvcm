@@ -1,4 +1,3 @@
-import React from 'react';
 import {SignOut} from './Buttons';
 import Logo from './Logo';
 

@@ -4,7 +4,7 @@ import {createColumnHelper, type Column, type Row} from '@tanstack/react-table';
 import Image from 'next/image';
 import Table, {
 	type HtmlTableElementClasses,
-} from '../(shared)/Table';
+} from '../(shared)/table/Table';
 
 const columnHelper = createColumnHelper<CustomerModel>();
 
