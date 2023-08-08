@@ -1,14 +1,15 @@
-import { prisma } from "@/prisma";
-import { NextRequest, NextResponse } from "next/server";
+/* eslint-disable @typescript-eslint/naming-convention */
+import {prisma} from '@/prisma';
+import {NextResponse} from 'next/server';
 
-export const GET = async (req: NextRequest, res: NextResponse) => {
-  try {
-    const customers = await prisma.customer.findMany();
-    return NextResponse.json(customers);
-  } catch (error) {
-    return NextResponse.json({
-      error,
-      message: `Error ${error} could not fetch customers.`,
-    });
-  }
+export const GET = async () => {
+	try {
+		const customers = await prisma.customer.findMany();
+		return NextResponse.json(customers);
+	} catch (error) {
+		return NextResponse.json({
+			error,
+			message: `Error ${(error as Error)?.message} could not fetch customers.`,
+		});
+	}
 };

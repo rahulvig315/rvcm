@@ -1,31 +1,30 @@
-import './globals.css'
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import { NextAuthProvider } from '../providers/NextAuthProvider';
-import { NotificationProvider } from '@/providers/NotificationProvider';
-import { APP_DESCRIPTION, APP_NAME } from '@/constants';
+import {appDescription, appName} from '@/constants';
+import {NotificationProvider} from '@/providers/NotificationProvider';
+import type {Metadata} from 'next';
+import {Inter} from 'next/font/google';
+import {type ReactNode} from 'react';
+import {NextAuthProvider} from '../providers/NextAuthProvider';
+import './globals.css';
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({subsets: ['latin']});
 
 export const metadata: Metadata = {
-  title: APP_NAME,
-  description: APP_DESCRIPTION,
-}
+	title: appName,
+	description: appDescription,
+};
 
 export default function RootLayout({
-  children,
+	children,
 }: {
-  children: React.ReactNode
+	children: ReactNode;
 }) {
-  return (
-    <html lang="en">
-      <body className={inter.className}>
-        <NextAuthProvider>
-          <NotificationProvider>
-            {children}
-          </NotificationProvider>
-        </NextAuthProvider>
-      </body>
-    </html>
-  )
+	return (
+		<html lang='en'>
+			<body className={inter.className}>
+				<NextAuthProvider>
+					<NotificationProvider>{children}</NotificationProvider>
+				</NextAuthProvider>
+			</body>
+		</html>
+	);
 }
