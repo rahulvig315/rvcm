@@ -8,7 +8,9 @@ import {
 	useReactTable,
 	type Column,
 } from '@tanstack/react-table';
-import {useState} from 'react';
+import { useState } from 'react';
+import DebouncedTableSearch from './DebouncedTableSearch';
+import TablePaginationActionGroup from './TablePaginationActionGroup';
 
 export type HtmlTableElementClasses = {
 	wrapper?: string;
@@ -25,7 +27,7 @@ export type HtmlTableElementClasses = {
 };
 
 export const defaultTableClasses = {
-	wrapper: 'text-xs w-[85vw] max-h-[80vh] overflow-auto flex flex-col',
+	wrapper: 'text-xs w-[85vw] max-h-[80vh] overflow-auto flex flex-col z-10 pb-32',
 	table: 'table-auto w-full m-auto text-left',
 	thead: 'w-screen sticky top-0',
 	trHead: 'bg-[#000] w-full uppercase shadow-2xl drop-shadow-2xl',
@@ -49,71 +51,79 @@ function Table<T extends Record<string, unknown>>({
 	data,
 	classes = defaultTableClasses,
 }: TableProps<T>) {
-	const [filtering, setFiltering] = useState();
+	const [globalFilterVal, setGlobalFilterVal] = useState('');
 	const table = useReactTable<T>({
 		columns,
 		data,
-		initialState: {
+		state: {
+			globalFilter: globalFilterVal,
 			pagination: {
 				pageIndex: 0,
-				pageSize: 5,
+				pageSize: 10,
 			},
 		},
 		getCoreRowModel: getCoreRowModel(),
 		getSortedRowModel: getSortedRowModel(),
 		getFilteredRowModel: getFilteredRowModel(),
 		getPaginationRowModel: getPaginationRowModel(),
+		onGlobalFilterChange: setGlobalFilterVal,
 	});
 
 	return (
-		<div className={classes.wrapper}>
-			<input type='text' value={} />
-			<table className={classes.table}>
-				<thead className={classes.thead}>
-					{table.getHeaderGroups().map(headerGroup => (
-						<tr key={headerGroup.id} className={classes.trHead}>
-							{headerGroup.headers.map(header => (
-								<th key={header.id} className={classes.th}>
-									{header.isPlaceholder
-										? null
-										: flexRender(
-											header.column.columnDef.header,
-											header.getContext(),
-										)}
-								</th>
-							))}
-						</tr>
-					))}
-				</thead>
-				<tbody className={classes.tbody}>
-					{table.getRowModel().rows.map(row => (
-						<tr key={row.id} className={classes.trBody}>
-							{row.getVisibleCells().map(cell => (
-								<td key={cell.id} className={classes.td}>
-									{flexRender(cell.column.columnDef.cell, cell.getContext())}
-								</td>
-							))}
-						</tr>
-					))}
-				</tbody>
-				<tfoot className={classes.tfoot}>
-					{table.getFooterGroups().map(footerGroup => (
-						<tr key={footerGroup.id} className={classes.trFoot}>
-							{footerGroup.headers.map(header => (
-								<th key={header.id} className={classes.thFoot}>
-									{header.isPlaceholder
-										? null
-										: flexRender(
-											header.column.columnDef.footer,
-											header.getContext(),
-										)}
-								</th>
-							))}
-						</tr>
-					))}
-				</tfoot>
-			</table>
-		</div>
+		<>
+			<DebouncedTableSearch value={globalFilterVal ?? ''} onChange={value => {
+				setGlobalFilterVal(String(value));
+			}}/>
+			<div className={classes.wrapper}>
+				<table className={classes.table}>
+					<thead className={classes.thead}>
+						{table.getHeaderGroups().map(headerGroup => (
+							<tr key={headerGroup.id} className={classes.trHead}>
+								{headerGroup.headers.map(header => (
+									<th key={header.id} className={classes.th}>
+										{header.isPlaceholder
+											? null
+											: flexRender(
+												header.column.columnDef.header,
+												header.getContext(),
+											)}
+									</th>
+								))}
+							</tr>
+						))}
+					</thead>
+					<tbody className={classes.tbody}>
+						{table.getRowModel().rows.map(row => (
+							<tr key={row.id} className={classes.trBody}>
+								{row.getVisibleCells().map(cell => (
+									<td key={cell.id} className={classes.td}>
+										{flexRender(cell.column.columnDef.cell, cell.getContext())}
+									</td>
+								))}
+							</tr>
+						))}
+					</tbody>
+					<tfoot className={classes.tfoot}>
+						{table.getFooterGroups().map(footerGroup => (
+							<tr key={footerGroup.id} className={classes.trFoot}>
+								{footerGroup.headers.map(header => (
+									<th key={header.id} className={classes.thFoot}>
+										{header.isPlaceholder
+											? null
+											: flexRender(
+												header.column.columnDef.footer,
+												header.getContext(),
+											)}
+									</th>
+								))}
+							</tr>
+						))}
+					</tfoot>
+				</table>
+				<TablePaginationActionGroup enabledActions={'all'} show={false} />
+			</div>
+		</>
+
 	);
 }
 

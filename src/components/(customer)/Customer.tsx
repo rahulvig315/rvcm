@@ -1,6 +1,7 @@
 'use client';
 import {type Customer as CustomerModel} from '@prisma/client';
 import {createColumnHelper, type Column, type Row} from '@tanstack/react-table';
+import {type StaticImport} from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
 import Table, {
 	type HtmlTableElementClasses,
@@ -37,17 +38,17 @@ const RowActions = ({
 };
 
 const defaultColumns = [
-	columnHelper.display({
-		id: 'customer',
+	columnHelper.accessor('fullName', {
+		id: 'fullName',
 		header: () => <span>Customer</span>,
-		cell: props => (
+		cell: (props: {row: {original: {image: string | StaticImport; fullName: string}}}) => (
 			<div className='flex items-center gap-3'>
 				<Image
 					src={props.row.original.image}
 					className='rounded-full'
 					width={50}
 					height={50}
-					alt={`Image of ${props.row.original.fullName}`}
+					alt={`Image of ${props.row.original.fullName ?? 'unknown'}`}
 				/>
 				{props.row.original.fullName}
 			</div>

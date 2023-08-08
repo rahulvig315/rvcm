@@ -49,5 +49,7 @@ module.exports = {
     'unused-imports/no-unused-imports': 'error',
     'new-cap': 0,
     '@typescript-eslint/indent': 0,
+    'object-curly-spacing': 'off',
+    '@typescript-eslint/object-curly-spacing': 0,
   },
 };
