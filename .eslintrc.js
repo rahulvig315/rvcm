@@ -48,5 +48,6 @@ module.exports = {
     'react/react-in-jsx-scope': 0,
     'unused-imports/no-unused-imports': 'error',
     'new-cap': 0,
+    '@typescript-eslint/indent': 0,
   },
 };
