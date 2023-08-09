@@ -1,5 +1,5 @@
-import {type Table} from '@tanstack/react-table';
-import {useState} from 'react';
+import { type Table } from '@tanstack/react-table';
+import { useState } from 'react';
 
 export type TablePaginationActionElements = 'first' | 'last' | 'next' | 'prev' | 'jump' | 'size';
 export type EnabledActionsOptions = 'all' | TablePaginationActionElements[];
@@ -35,7 +35,7 @@ const defaultClasses: TablePaginationActionGroupProps<unknown>['classes'] = {
 	buttons: {
 		wrapper: ' flex gap-3 p-1',
 		firstPage: 'bg-[#132] px-3 py-1 rounded-sm',
-		nextPage: 'bg-[#132] px-3 py-1  rounded-sm',
+		nextPage: 'bg-[#132] px-3 py-1  rounded-sm disabled:bg-[#333]',
 		prevPage: 'bg-[#132] px-3 py-1 rounded-sm disabled:bg-[#333]',
 		lastPage: 'bg-[#132] px-3 py-1 rounded-sm',
 		jump: 'uppercase bg-[#132] px-3 py-1 rounded-sm',
