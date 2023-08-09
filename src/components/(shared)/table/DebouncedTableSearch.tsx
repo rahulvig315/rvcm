@@ -10,9 +10,9 @@ type DebouncedTableSearchProps = {
 
 const DebouncedTableSearch: React.FC<DebouncedTableSearchProps> = ({
 	classes = {
-		wrapper: 'flex items-center justify-center gap-5 p-3 bg-[#222] m-auto sticky top-0 z-10 text-xs',
-		label: 'uppercase',
-		input: 'p-2 flex-1 max-w-[400px] rounded-lg bg-black hover:ring hover:ring-blue-500/50',
+		wrapper: 'p-3 text-xs flex-1',
+		label: 'uppercase w-1/3 mx-3 font-semibold',
+		input: 'p-2 rounded-lg  w-2/3 m-1 hover:ring hover:ring-blue-500/50 bg-[#333]',
 	},
 	tableName = '',
 	value: initialValue,

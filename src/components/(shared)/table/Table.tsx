@@ -57,10 +57,6 @@ function Table<T extends Record<string, unknown>>({
 		data,
 		state: {
 			globalFilter: globalFilterVal,
-			pagination: {
-				pageIndex: 0,
-				pageSize: 10,
-			},
 		},
 		getCoreRowModel: getCoreRowModel(),
 		getSortedRowModel: getSortedRowModel(),
@@ -69,11 +65,18 @@ function Table<T extends Record<string, unknown>>({
 		onGlobalFilterChange: setGlobalFilterVal,
 	});
 
+	if (!table) {
+		return null;
+	}
+
 	return (
 		<>
-			<DebouncedTableSearch value={globalFilterVal ?? ''} onChange={value => {
-				setGlobalFilterVal(String(value));
-			}}/>
+			<div className='flex justify-evenly'>
+				<DebouncedTableSearch value={globalFilterVal ?? ''} onChange={value => {
+					setGlobalFilterVal(String(value));
+				}}/>
+				<TablePaginationActionGroup enabledActions={'all'} show={true} table={table}/>
+			</div>
 			<div className={classes.wrapper}>
 				<table className={classes.table}>
 					<thead className={classes.thead}>
@@ -120,7 +123,6 @@ function Table<T extends Record<string, unknown>>({
 						))}
 					</tfoot>
 				</table>
-				<TablePaginationActionGroup enabledActions={'all'} show={false} />
 			</div>
 		</>
 
