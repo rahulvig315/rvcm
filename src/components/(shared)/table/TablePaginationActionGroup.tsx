@@ -1,5 +1,5 @@
-import { type Table } from '@tanstack/react-table';
-import { useState } from 'react';
+import {type Table} from '@tanstack/react-table';
+import {useState} from 'react';
 
 export type TablePaginationActionElements = 'first' | 'last' | 'next' | 'prev' | 'jump' | 'size';
 export type EnabledActionsOptions = 'all' | TablePaginationActionElements[];
