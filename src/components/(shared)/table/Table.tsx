@@ -8,7 +8,7 @@ import {
 	useReactTable,
 	type Column,
 } from '@tanstack/react-table';
-import { useState } from 'react';
+import {useState} from 'react';
 import DebouncedTableSearch from './DebouncedTableSearch';
 import TablePaginationActionGroup from './TablePaginationActionGroup';
 
@@ -34,7 +34,7 @@ export const defaultTableClasses = {
 	th: 'p-5 font-light tracking-widest',
 	tbody: 'divide-y divide-[#132] flex-1',
 	trBody: 'even:bg-[#222] w-full',
-	td: 'p-3 font-extralight break-all',
+	td: 'p-5 font-extralight break-all',
 	tfoot: '',
 	trFoot: '',
 	thFoot: '',

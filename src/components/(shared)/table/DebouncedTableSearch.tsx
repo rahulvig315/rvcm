@@ -1,4 +1,4 @@
-import React, { useEffect, useState, type ChangeEvent } from 'react';
+import React, {useEffect, useState, type ChangeEvent} from 'react';
 
 type DebouncedTableSearchProps = {
 	tableName?: string;
