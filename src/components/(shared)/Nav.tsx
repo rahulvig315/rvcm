@@ -1,4 +1,4 @@
-import {SignOut} from './Buttons';
+import {SignOut} from '@/components/(shared)/Buttons';
 import Logo from './Logo';
 
 const navStyles = {

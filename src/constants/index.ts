@@ -14,7 +14,7 @@ export enum NotificationTypes {
 	ERROR = 'error',
 }
 
-export enum Routes {
+export enum PageRoutes {
 	Dashboard = '/dashboard',
 	Customers = '/customers',
 	Analytics = '/analytics',
@@ -24,7 +24,13 @@ export enum Routes {
 	Logs = '/logs',
 	Finances = '/finances',
 	Chat = '/chat',
+}
+
+export enum ApiRoutes {
 	Registration = '/api/register',
+	Customers = '/api/customers',
+	Transactions = '/api/transactions',
+	Products = '/api/products',
 }
 
 export const requestHeaders = {

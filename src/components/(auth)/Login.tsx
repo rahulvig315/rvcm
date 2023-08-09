@@ -1,11 +1,11 @@
 'use client';
-import {NotificationTypes, requestHeaders} from '@/constants';
+import {ApiRoutes, NotificationTypes, requestHeaders} from '@/constants';
 import {useNotification} from '@/hooks/notification';
 import {type User} from '@prisma/client';
 import {signIn, useSession, type SignInResponse} from 'next-auth/react';
 import {redirect} from 'next/navigation';
 import {useState, type ChangeEvent, type MouseEvent} from 'react';
-import {GithubButton, GoogleButton} from '../(shared)/Buttons';
+import {GoogleButton, GithubButton} from '@/components/(shared)/Buttons';
 
 const defaultLoginOpts = {
 	classes: {
@@ -39,7 +39,7 @@ const Routes = {
 };
 
 export function Login({loginOpts = defaultLoginOpts}: {loginOpts?: LoginProps['loginOpts']}) {
-	const {addNotification, notifications} = useNotification();
+	const {addNotification} = useNotification();
 	const [formInputs, setFormInputs] = useState({
 		name: '',
 		email: '',
@@ -72,7 +72,7 @@ export function Login({loginOpts = defaultLoginOpts}: {loginOpts?: LoginProps['l
 			const password: string = formInputs.password || '';
 			const passwordConfirm: string = formInputs.passwordConfirm || '';
 			if (password === passwordConfirm && Boolean(name) && Boolean(email)) {
-				const createUserRes: Awaited<Response> = await fetch('/api/register', {
+				const createUserRes: Awaited<Response> = await fetch(ApiRoutes.Registration, {
 					method: 'POST',
 					headers: requestHeaders.contentType,
 					body: JSON.stringify({
