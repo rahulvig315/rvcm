@@ -8,7 +8,7 @@ import {
 	useReactTable,
 	type Column,
 } from '@tanstack/react-table';
-import {useState} from 'react';
+import { useState } from 'react';
 import DebouncedTableSearch from './DebouncedTableSearch';
 import TablePaginationActionGroup from './TablePaginationActionGroup';
 
@@ -44,12 +44,14 @@ export type TableProps<T extends Record<string, unknown>> = {
 	columns: Array<Column<T>>;
 	data: T[];
 	classes?: HtmlTableElementClasses;
+	setData: (data: TableProps<T>['data']) => void;
 };
 
 function Table<T extends Record<string, unknown>>({
 	columns,
 	data,
 	classes = defaultTableClasses,
+	setData,
 }: TableProps<T>) {
 	const [globalFilterVal, setGlobalFilterVal] = useState('');
 	const table = useReactTable<T>({
@@ -57,6 +59,9 @@ function Table<T extends Record<string, unknown>>({
 		data,
 		state: {
 			globalFilter: globalFilterVal,
+		},
+		meta: {
+			setData,
 		},
 		getCoreRowModel: getCoreRowModel(),
 		getSortedRowModel: getSortedRowModel(),

@@ -1,18 +1,31 @@
+'use client';
 import CustomerTable from '@/components/(customer)/Customer';
 import Header from '@/components/(shared)/Header';
-import {ApiRoutes} from '@/constants';
-import {type Customer as CustomerModel} from '@prisma/client';
+import { ApiRoutes } from '@/constants';
+import { type Customer } from '@prisma/client';
+import { useEffect, useState } from 'react';
 
 async function getCustomers() {
-	return (await fetch(`${process.env.NEXTAUTH_URL}${ApiRoutes.Customers}`)).json();
+	return fetch(`${ApiRoutes.Customers}`);
 }
 
-async function Customers() {
-	const customers: CustomerModel[] = await getCustomers() as CustomerModel[];
+function Customers() {
+	const [customers, setCustomers] = useState<Customer[] | undefined>();
+
+	useEffect(() => {
+		void getCustomers().then(async data => data.json()).then(data => {
+			setCustomers(data as Customer[]);
+		});
+	}, []);
+
+	if (!customers) {
+		return null;
+	}
+
 	return (
 		<>
 			<Header title='Customers' />
-			<CustomerTable customers={customers} />
+			<CustomerTable customers={customers} setCustomers={setCustomers}/>
 		</>
 	);
 }
