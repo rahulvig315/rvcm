@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import {prisma} from '@/prisma';
+import {type Customer} from '@prisma/client';
 import {NextResponse, type NextRequest} from 'next/server';
 
 export const GET = async (req: NextRequest, res: (NextResponse & {params: {id: string}})) => {
@@ -8,7 +9,6 @@ export const GET = async (req: NextRequest, res: (NextResponse & {params: {id: s
 		const foundUser = await prisma.customer.findUniqueOrThrow({
 			where: {id},
 		});
-		console.log(foundUser);
 		return NextResponse.json({
 			...foundUser,
 		});
@@ -29,7 +29,6 @@ export const DELETE = async (req: NextRequest, res: (NextResponse & {params: {id
 			msg: `Record with id ${id} was deleted.`,
 		});
 	} catch (error) {
-		console.log('error', error);
 		return NextResponse.json({
 			status: 404,
 			error: 'Customer not found',
@@ -41,15 +40,15 @@ export const DELETE = async (req: NextRequest, res: (NextResponse & {params: {id
 export const PATCH = async (req: NextRequest, res: (NextResponse & {params: {id: string}})) => {
 	try {
 		const id = res.params?.id;
+		const updated: Customer = await req.json() as Customer;
 		const updatedUser = await prisma.customer.update(
 			{
 				where: {id},
 				data: {
-					...req.body,
+					...updated,
 				},
 			},
 		);
-		console.log('updatedUser', updatedUser);
 		return NextResponse.json({
 			...updatedUser,
 		});

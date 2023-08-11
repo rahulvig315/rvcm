@@ -1,10 +1,10 @@
 'use client';
-import {ApiRoutes} from '@/constants';
+import {ApiRoutes, requestHeaders} from '@/constants';
 import {type Customer as CustomerModel} from '@prisma/client';
 import {createColumnHelper, type Column, type Row} from '@tanstack/react-table';
 import {type StaticImport} from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
-import {useState} from 'react';
+import {useState, type ChangeEvent} from 'react';
 import {Modal} from '../(shared)/modal/Modal';
 import Table, {
 	type HtmlTableElementClasses,
@@ -56,8 +56,17 @@ export const ViewCustomerModal = ({show, setShow, row, onDelete}: {show: boolean
 	);
 };
 
-export const EditCustomerModal = ({show, setShow, row, onDelete}: {show: boolean; row: Row<CustomerModel>; setShow: (show: boolean) => void; onDelete: (id: string) => void}) => {
+export const EditCustomerModal = ({show, setShow, row, onUpdate}: {show: boolean; row: Row<CustomerModel>; setShow: (show: boolean) => void; onUpdate: (customer: CustomerModel) => void}) => {
 	const {original: customer} = row;
+	const [updatedCustomer, setUpdatedCustomer] = useState({
+		...customer,
+	});
+
+	const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+		const {name, value} = e.target;
+		setUpdatedCustomer(prevInputs => ({...prevInputs, [name]: value}));
+	};
+
 	return (
 		<Modal show={show} setShow={setShow}>
 			<Modal.Header>
@@ -72,15 +81,18 @@ export const EditCustomerModal = ({show, setShow, row, onDelete}: {show: boolean
 			</Modal.Header>
 			<Modal.Body>
 				<div className='flex flex-col gap-2 p-5 justify-center normal-case font-bold items-stretch w-full'>
-					<div>Email: <input type='email' value={customer.email} className='bg-[#333] min-w-[300px] m-2 p-2 rounded'/></div>
-					<div>Address: <input type='text' value={customer.address} className='bg-[#333] min-w-[300px] m-2 p-2 rounded'/></div>
-					<div>About: <input type='text' value={customer.bio} className='bg-[#333] min-w-[300px] m-2 p-2 rounded'/></div>
-					<div>Phone:  <input type='text' value={customer.phone} className='bg-[#333] min-w-[300px] m-2 p-2 rounded'/></div>
-					<div>Type: <input type='text' value={customer.accountName} className='bg-[#333] min-w-[300px] m-2 p-2 rounded'/></div>
+					<div>Email: <input type='email' name='email' onChange={onInputChange} value={updatedCustomer.email} className='bg-[#333] min-w-[300px] m-2 p-2 rounded'/></div>
+					<div>Address: <input type='text' name='address' onChange={onInputChange} value={updatedCustomer.address} className='bg-[#333] min-w-[300px] m-2 p-2 rounded'/></div>
+					<div>About: <input type='text' name='about' onChange={onInputChange} value={updatedCustomer.bio} className='bg-[#333] min-w-[300px] m-2 p-2 rounded'/></div>
+					<div>Phone:  <input type='text' name='bio' onChange={onInputChange} value={updatedCustomer.phone} className='bg-[#333] min-w-[300px] m-2 p-2 rounded'/></div>
+					<div>Type: <input type='text' name='type' onChange={onInputChange} value={updatedCustomer.accountName} className='bg-[#333] min-w-[300px] m-2 p-2 rounded'/></div>
 				</div>
 			</Modal.Body>
 			<Modal.Footer>
-				<button className='bg-warn/50 rounded px-2 py-1 uppercase'>Update</button>
+				<button onClick={() => {
+					onUpdate(updatedCustomer);
+					setShow(false);
+				}} className='bg-warn/50 rounded px-2 py-1 uppercase'>Update</button>
 				<button onClick={() => {
 					setShow(false);
 				}} className='bg-black/50 rounded px-2 py-1 uppercase'>Close</button>
@@ -141,6 +153,28 @@ const RowActions = ({
 		setData!(filteredData);
 	};
 
+	const onUpdate = async (customer: CustomerModel) => {
+		const {id: customerId} = customer;
+		console.log(customer);
+
+		await fetch(`${ApiRoutes.Customers}/${customerId}`, {
+			method: 'PATCH',
+			headers: {
+				...requestHeaders.contentType,
+			},
+			body: JSON.stringify(customer),
+		});
+		const {data} = row.getAllCells()[0].getContext().table.options;
+		const updatedData = data.map(cust => {
+			if (cust.id === customerId) {
+				return customer;
+			}
+
+			return cust;
+		});
+		setData!(updatedData);
+	};
+
 	return (
 		<div className={rowClass}>
 			<button onClick={() => {
@@ -150,7 +184,7 @@ const RowActions = ({
 			<button onClick={() => {
 				setEditModal(!showModals?.edit);
 			}} className={editBtnClass}>Edit</button>
-			{showModals.edit && <EditCustomerModal show={showModals.edit} onDelete={onDelete} row={row} setShow={setEditModal}/>}
+			{showModals.edit && <EditCustomerModal show={showModals.edit} onUpdate={onUpdate} row={row} setShow={setEditModal}/>}
 			<button onClick={async () => onDelete(row.original.id)} className={deleteBtnClass}>Delete</button>
 		</div>
 	);
