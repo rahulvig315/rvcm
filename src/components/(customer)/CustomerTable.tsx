@@ -83,9 +83,9 @@ export const EditCustomerModal = ({show, setShow, row, onUpdate}: {show: boolean
 				<div className='flex flex-col gap-2 p-5 justify-center normal-case font-bold items-stretch w-full'>
 					<div>Email: <input type='email' name='email' onChange={onInputChange} value={updatedCustomer.email} className='bg-[#333] min-w-[300px] m-2 p-2 rounded'/></div>
 					<div>Address: <input type='text' name='address' onChange={onInputChange} value={updatedCustomer.address} className='bg-[#333] min-w-[300px] m-2 p-2 rounded'/></div>
-					<div>About: <input type='text' name='about' onChange={onInputChange} value={updatedCustomer.bio} className='bg-[#333] min-w-[300px] m-2 p-2 rounded'/></div>
-					<div>Phone:  <input type='text' name='bio' onChange={onInputChange} value={updatedCustomer.phone} className='bg-[#333] min-w-[300px] m-2 p-2 rounded'/></div>
-					<div>Type: <input type='text' name='type' onChange={onInputChange} value={updatedCustomer.accountName} className='bg-[#333] min-w-[300px] m-2 p-2 rounded'/></div>
+					<div>About: <input type='text' name='bio' onChange={onInputChange} value={updatedCustomer.bio} className='bg-[#333] min-w-[300px] m-2 p-2 rounded'/></div>
+					<div>Phone:  <input type='text' name='phone' onChange={onInputChange} value={updatedCustomer.phone} className='bg-[#333] min-w-[300px] m-2 p-2 rounded'/></div>
+					<div>Type: <input type='text' name='accountName' onChange={onInputChange} value={updatedCustomer.accountName} className='bg-[#333] min-w-[300px] m-2 p-2 rounded'/></div>
 				</div>
 			</Modal.Body>
 			<Modal.Footer>

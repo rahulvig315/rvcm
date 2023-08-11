@@ -9,7 +9,7 @@ export const ModalBody = ({children, className = classes.body}: {children: React
 export const ModalFooter = ({children, className = classes.footer}: {children: React.ReactNode; className?: string}) => <section className={className}>{children}</section>;
 
 const modalClasses = {
-	wrapper: 'absolute text-white bg-black/80 flex justify-center items-center top-0 w-full h-full',
+	wrapper: 'absolute text-white bg-black/80 flex justify-center items-center top-0 w-full h-full z-50',
 	modal: ' w-1/2 flex flex-col bg-[#132] rounded',
 	close: 'place-self-end  rounded-lg flex justify-center font-thin text-xs px-1 m-2',
 };
