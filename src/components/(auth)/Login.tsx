@@ -3,8 +3,35 @@ import {ApiRoutes, NotificationTypes, requestHeaders} from '@/constants';
 import {useNotification} from '@/hooks/notification';
 import {type User} from '@prisma/client';
 import {signIn, useSession, type SignInResponse} from 'next-auth/react';
+import Image from 'next/image';
 import {redirect} from 'next/navigation';
 import {useState, type ChangeEvent, type MouseEvent} from 'react';
+export type ProviderButtonProps = {
+	className?: string;
+	size?: number;
+	src: string;
+	provider: string;
+};
+
+export function ProviderButton({className, size = 30, src, provider}: ProviderButtonProps) {
+	return (
+		<button className={className} type='button' onClick={async () => signIn(provider)}>
+			<Image src={src} width={size} height={size} alt={provider} />
+		</button>
+	);
+}
+
+export function GithubButton({className, size}: Partial<ProviderButtonProps>) {
+	return (
+		<ProviderButton className={className} src='/github.svg' provider='github' />
+	);
+}
+
+export function GoogleButton({className, size}: Partial<ProviderButtonProps>) {
+	return (
+		<ProviderButton className={className} src='/google.svg' provider='google' />
+	);
+}
 
 const defaultLoginOpts = {
 	classes: {

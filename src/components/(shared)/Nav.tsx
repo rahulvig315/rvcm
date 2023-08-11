@@ -1,4 +1,5 @@
-import {SignOut} from '@/components/(shared)/Buttons';
+'use client';
+import {signOut} from 'next-auth/react';
 import Logo from './Logo';
 
 const navStyles = {
@@ -11,6 +12,13 @@ const navStyles = {
 		logoSize: 50,
 	},
 };
+
+export function SignOut({className = 'bg-[#132] uppercase text-sm font-black rounded-r-md rounded-l-md px-5', size}: Partial<any>) {
+	return (
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+		<button className={className} onClick={async () => signOut()}>Sign Out</button>
+	);
+}
 
 function Nav({classes = navStyles.classes, attributes = navStyles.attributes}: {classes?: typeof navStyles['classes']; attributes?: typeof navStyles['attributes']}) {
 	return (
