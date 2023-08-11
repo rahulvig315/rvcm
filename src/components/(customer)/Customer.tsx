@@ -60,15 +60,30 @@ export const EditCustomerModal = ({show, setShow, row, onDelete}: {show: boolean
 	const {original: customer} = row;
 	return (
 		<Modal show={show} setShow={setShow}>
-			<Modal.Header>Header</Modal.Header>
-			<Modal.Body>
+			<Modal.Header>
+				<Image
+					src={customer.image}
+					className='rounded-full'
+					width={50}
+					height={50}
+					alt={`Image of ${customer.fullName ?? 'unknown'}`}
+				/>
 				<h1>{customer.fullName}</h1>
+			</Modal.Header>
+			<Modal.Body>
+				<div className='flex flex-col gap-2 p-5 justify-center normal-case font-bold items-stretch w-full'>
+					<div>Email: <input type='email' value={customer.email} className='bg-[#333] min-w-[300px] m-2 p-2 rounded'/></div>
+					<div>Address: <input type='text' value={customer.address} className='bg-[#333] min-w-[300px] m-2 p-2 rounded'/></div>
+					<div>About: <input type='text' value={customer.bio} className='bg-[#333] min-w-[300px] m-2 p-2 rounded'/></div>
+					<div>Phone:  <input type='text' value={customer.phone} className='bg-[#333] min-w-[300px] m-2 p-2 rounded'/></div>
+					<div>Type: <input type='text' value={customer.accountName} className='bg-[#333] min-w-[300px] m-2 p-2 rounded'/></div>
+				</div>
 			</Modal.Body>
 			<Modal.Footer>
-				<button>Update</button>
+				<button className='bg-warn/50 rounded px-2 py-1 uppercase'>Update</button>
 				<button onClick={() => {
 					setShow(false);
-				}}>Close</button>
+				}} className='bg-black/50 rounded px-2 py-1 uppercase'>Close</button>
 			</Modal.Footer>
 		</Modal>);
 };
