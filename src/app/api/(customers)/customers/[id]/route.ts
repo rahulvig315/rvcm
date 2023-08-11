@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { prisma } from '@/prisma';
-import { NextResponse, type NextRequest } from 'next/server';
+import {prisma} from '@/prisma';
+import {NextResponse, type NextRequest} from 'next/server';
 
 export const GET = async (req: NextRequest, res: (NextResponse & {params: {id: string}})) => {
 	try {

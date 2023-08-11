@@ -8,7 +8,7 @@ import {
 	useReactTable,
 	type Column,
 } from '@tanstack/react-table';
-import { useState } from 'react';
+import {useState} from 'react';
 import DebouncedTableSearch from './DebouncedTableSearch';
 import TablePaginationActionGroup from './TablePaginationActionGroup';
 

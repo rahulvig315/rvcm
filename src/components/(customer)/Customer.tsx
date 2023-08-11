@@ -1,11 +1,11 @@
 'use client';
-import { ApiRoutes } from '@/constants';
-import { type Customer as CustomerModel } from '@prisma/client';
-import { createColumnHelper, type Column, type Row } from '@tanstack/react-table';
-import { type StaticImport } from 'next/dist/shared/lib/get-img-props';
+import {ApiRoutes} from '@/constants';
+import {type Customer as CustomerModel} from '@prisma/client';
+import {createColumnHelper, type Column, type Row} from '@tanstack/react-table';
+import {type StaticImport} from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
-import { useState } from 'react';
-import { Modal } from '../(shared)/modal/Modal';
+import {useState} from 'react';
+import {Modal} from '../(shared)/modal/Modal';
 import Table, {
 	type HtmlTableElementClasses,
 } from '../(shared)/table/Table';
