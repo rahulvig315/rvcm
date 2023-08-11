@@ -5,7 +5,6 @@ import {type User} from '@prisma/client';
 import {signIn, useSession, type SignInResponse} from 'next-auth/react';
 import {redirect} from 'next/navigation';
 import {useState, type ChangeEvent, type MouseEvent} from 'react';
-import {GoogleButton, GithubButton} from '@/components/(shared)/Buttons';
 
 const defaultLoginOpts = {
 	classes: {

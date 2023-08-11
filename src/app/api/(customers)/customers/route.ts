@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { prisma } from '@/prisma';
-import { type Customer } from '@prisma/client';
-import { randomUUID } from 'crypto';
-import { NextResponse, type NextRequest } from 'next/server';
+import {prisma} from '@/prisma';
+import {type Customer} from '@prisma/client';
+import {randomUUID} from 'crypto';
+import {NextResponse, type NextRequest} from 'next/server';
 
 export const GET = async () => {
 	try {
